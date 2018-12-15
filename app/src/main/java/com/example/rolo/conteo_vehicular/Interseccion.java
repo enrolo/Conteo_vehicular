@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -30,9 +31,16 @@ public class Interseccion extends AppCompatActivity {
 
     //para probar los botones
     public void alclick1(View view){
+        //if(){}
+        String[] op = {"Seleccione esquina","A","B","C","D"};
+        ArrayAdapter <String> array = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,op);
+        spubicacion.setAdapter(array);
         Toast.makeText(this,"ha seleccionado intersección cruz",Toast.LENGTH_SHORT).show();
     }
     public void alclick2(View view){
+        String[] op = {"Seleccione esquina","A","B","C"};
+        ArrayAdapter <String> array = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,op);
+        spubicacion.setAdapter(array);
         Toast.makeText(this,"ha seleccionado intersección t",Toast.LENGTH_SHORT).show();
     }
 

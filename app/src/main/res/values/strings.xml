@@ -1,9 +1,3 @@
 <resources>
     <string name="app_name">Conteo_vehicular</string>
-    <string-array name="esquinas">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-    </string-array>
 </resources>

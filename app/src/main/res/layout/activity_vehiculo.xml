@@ -153,6 +153,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="380dp"
         android:text="Seleccione tipos de Vehículo"
+        android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
