@@ -17,6 +17,7 @@ public class Interseccion extends AppCompatActivity {
     TextView etcallev,etcalleh;
     Button bsiguiente;
     Spinner spubicacion;
+    int valor = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +33,14 @@ public class Interseccion extends AppCompatActivity {
     //para probar los botones
     public void alclick1(View view){
         //if(){}
+        valor = 1;
         String[] op = {"Seleccione esquina","A","B","C","D"};
         ArrayAdapter <String> array = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,op);
         spubicacion.setAdapter(array);
         Toast.makeText(this,"ha seleccionado intersección cruz",Toast.LENGTH_SHORT).show();
     }
     public void alclick2(View view){
+        valor = 2;
         String[] op = {"Seleccione esquina","A","B","C"};
         ArrayAdapter <String> array = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,op);
         spubicacion.setAdapter(array);
@@ -45,7 +48,23 @@ public class Interseccion extends AppCompatActivity {
     }
 
     public void amovimiento(View view){
-        Intent abrirmovimiento= new Intent(Interseccion.this, Movimiento.class);
-        startActivity(abrirmovimiento);
+        boolean v=true;
+        String callev = etcallev.getText().toString().trim();
+        String calleh = etcalleh.getText().toString().trim();
+        String seleccion = spubicacion.getSelectedItem().toString();
+        //Toast.makeText(this,seleccion,Toast.LENGTH_SHORT).show();
+        if(valor==0){
+            Toast.makeText(this,"Seleccione intersección",Toast.LENGTH_SHORT).show();
+            v=false;
+        }if (callev.isEmpty() || calleh.isEmpty()) {
+            Toast.makeText(this,"No deje campos en blanco",Toast.LENGTH_SHORT).show();
+            v=false;
+        }if(seleccion=="Seleccione esquina"){
+            Toast.makeText(this,"Seleccione esquina",Toast.LENGTH_SHORT).show();
+            v=false;
+        }if(v){
+            Intent abrirmovimiento = new Intent(Interseccion.this, Movimiento.class);
+            startActivity(abrirmovimiento);
+        }
     }
 }

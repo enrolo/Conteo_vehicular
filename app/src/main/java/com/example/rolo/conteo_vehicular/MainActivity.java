@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         String apellido = etapellido.getText().toString().trim();
         String rut = etrut.getText().toString().trim();
         String correo = etcorreo.getText().toString().trim();
-        if (nombre.isEmpty() || apellido.isEmpty() || rut.isEmpty() || correo.isEmpty()) {
-            Toast.makeText(this,"No deje campos en blanco",Toast.LENGTH_SHORT).show();
-        }else{
+        //if (nombre.isEmpty() || apellido.isEmpty() || rut.isEmpty() || correo.isEmpty()) {
+        //    Toast.makeText(this,"No deje campos en blanco",Toast.LENGTH_SHORT).show();
+        //}else{
             Intent abririnterseccion = new Intent(MainActivity.this, Interseccion.class);
             startActivity(abririnterseccion);
-        }
+        //}
     }
 }
