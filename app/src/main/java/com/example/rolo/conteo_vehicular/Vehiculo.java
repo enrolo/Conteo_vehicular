@@ -50,7 +50,7 @@ public class Vehiculo extends AppCompatActivity {
             abrirconteo.putExtra("vehiculos", vehiculos);
             startActivity(abrirconteo);
         }
-        else{
+        else{ 
             Toast.makeText(this,"Debe seleccionar al menos un vehículo",Toast.LENGTH_SHORT).show();
         }
     }
