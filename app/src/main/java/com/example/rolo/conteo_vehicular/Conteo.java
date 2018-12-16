@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Conteo extends AppCompatActivity {
     ImageButton bbici,bmoto,bcolectivo,btaxi,bauto,bcamion,bmicro,bbus,bcamiongrande,barriba,bizquierda,bderecha;
@@ -15,11 +16,22 @@ public class Conteo extends AppCompatActivity {
     boolean[] movs;
     boolean[] vehiculos;
     int vehiculo=0;
+    int mov=0;
+    //matriz para guardar todas las adiciones
+    int[][] sumas = new int[10][4];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conteo);
+
+        //llenando la matriz sumas con puros ceros;
+        for (int i=1;i<=9;i++){
+            for (int j=0;i<=4;i++){
+                sumas[i][j]=0;
+            }
+        }
 
         //datos enviados desde activity vehiculos
         movs = getIntent().getBooleanArrayExtra("movs");
@@ -98,5 +110,74 @@ public class Conteo extends AppCompatActivity {
     }
     public void bici(View view){
         vehiculo = 1;
+    }public void moto(View view){
+        vehiculo = 2;
+    }public void colectivo(View view){
+        vehiculo = 3;
+    }public void taxi(View view){
+        vehiculo = 4;
+    }public void auto(View view){
+        vehiculo = 5;
+    }public void camion(View view){
+        vehiculo = 6;
+    }public void micro(View view){
+        vehiculo = 7;
+    }public void bus(View view){
+        vehiculo = 8;
+    }public void camiongrande(View view){
+        vehiculo = 9;
+    }
+    public void arriba(View view){
+        if(vehiculo!=0) {
+            mov = 1;
+        }else{
+            Toast.makeText(this,"Seleccione previamente un vehículo",Toast.LENGTH_SHORT).show();
+        }
+        adicion(vehiculo,mov);
+        vehiculo = 0;
+    }
+    public void izquierda(View view){
+        if(vehiculo!=0) {
+            mov = 2;
+        }else{
+            Toast.makeText(this,"Seleccione previamente un vehículo",Toast.LENGTH_SHORT).show();
+        }
+        adicion(vehiculo,mov);
+        vehiculo = 0;
+    }
+    public void derecha(View view){
+        if(vehiculo!=0) {
+            mov = 3;
+        }else{
+            Toast.makeText(this,"Seleccione previamente un vehículo",Toast.LENGTH_SHORT).show();
+        }
+        adicion(vehiculo,mov);
+        vehiculo = 0;
+    }
+
+    //metodo para sumar los vehiculos según tipo y movimiento
+    public void adicion(int i,int j){
+        sumas[i][j]++;
+        sumas[i][0]++;
+        switch (i){
+            case 1: tvbici.setText(String.valueOf(sumas[i][0]));
+            break;
+            case 2: tvmoto.setText(String.valueOf(sumas[i][0]));
+            break;
+            case 3: tvcolectivo.setText(String.valueOf(sumas[i][0]));
+                break;
+            case 4: tvtaxi.setText(String.valueOf(sumas[i][0]));
+                break;
+            case 5: tvauto.setText(String.valueOf(sumas[i][0]));
+                break;
+            case 6: tvcamion.setText(String.valueOf(sumas[i][0]));
+                break;
+            case 7: tvmicro.setText(String.valueOf(sumas[i][0]));
+                break;
+            case 8: tvbus.setText(String.valueOf(sumas[i][0]));
+                break;
+            case 9: tvcamiongrande.setText(String.valueOf(sumas[i][0]));
+                break;
+        }
     }
 }
