@@ -6,14 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class Vehiculo extends AppCompatActivity {
     CheckBox chkbici,chkmoto,chkcolectivo,chktaxi,chkauto,chkcamion,chkmicro,chkbus,chkcamiongrande;
     Button bsiguiente;
+    boolean[] movs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehiculo);
+
+        //datos enviados desde activity movimiento
+        movs = getIntent().getBooleanArrayExtra("movs");
+
         chkbici= (CheckBox) findViewById(R.id.chkbici);
         chkmoto= (CheckBox) findViewById(R.id.chkmoto);
         chkcolectivo= (CheckBox) findViewById(R.id.chkcolectivo);
@@ -26,7 +33,25 @@ public class Vehiculo extends AppCompatActivity {
         bsiguiente = (Button) findViewById(R.id.bsiguiente);
     }
     public void aconteo(View view){
-        Intent abrirconteo= new Intent(Vehiculo.this, Conteo.class);
-        startActivity(abrirconteo);
+        //guardando la elección de vehiculos como valores booleanos en un arreglo
+        boolean[] vehiculos ={chkbici.isChecked(),chkmoto.isChecked(),chkcolectivo.isChecked(),chktaxi.isChecked(),chkauto.isChecked(),chkcamion.isChecked(),chkmicro.isChecked(),chkbus.isChecked(),chkcamiongrande.isChecked()};
+        boolean v=false;
+        //evaluando existencia de al menos una elección de vehículo
+        for (int i=0; i<=vehiculos.length;i++){
+            if(vehiculos[i]){
+                v=true;
+                break;
+            }
+        }
+
+        if(v){
+            Intent abrirconteo = new Intent(Vehiculo.this, Conteo.class);
+            abrirconteo.putExtra("movs",movs);
+            abrirconteo.putExtra("vehiculos", vehiculos);
+            startActivity(abrirconteo);
+        }
+        else{
+            Toast.makeText(this,"Debe seleccionar al menos un vehículo",Toast.LENGTH_SHORT).show();
+        }
     }
 }

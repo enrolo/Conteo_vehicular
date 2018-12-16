@@ -3,6 +3,7 @@ package com.example.rolo.conteo_vehicular;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         etapellido = (EditText) findViewById(R.id.etapellido);
         etrut = (EditText) findViewById(R.id.etrut);
         etcorreo= (EditText) findViewById(R.id.etcorreo);
-
+        //etnombre.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "));
     }
     public void ainterseccion(View view) {
         String nombre = etnombre.getText().toString().trim();
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //if (nombre.isEmpty() || apellido.isEmpty() || rut.isEmpty() || correo.isEmpty()) {
         //    Toast.makeText(this,"No deje campos en blanco",Toast.LENGTH_SHORT).show();
         //}else{
+
             Intent abririnterseccion = new Intent(MainActivity.this, Interseccion.class);
             startActivity(abririnterseccion);
         //}

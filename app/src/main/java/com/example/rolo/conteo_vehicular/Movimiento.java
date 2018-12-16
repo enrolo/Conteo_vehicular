@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class Movimiento extends AppCompatActivity {
     CheckBox chkarriba,chkizquierda,chkderecha;
@@ -19,8 +20,16 @@ public class Movimiento extends AppCompatActivity {
         chkderecha= (CheckBox) findViewById(R.id.chkderecha);
         bsiguiente = (Button) findViewById(R.id.bsiguiente);
     }
-    public void avehiculo(View view){
-        Intent abrirvehiculo = new Intent(Movimiento.this, Vehiculo.class);
-        startActivity(abrirvehiculo);
+    public void avehiculo(View view) {
+        boolean[] movs = {chkarriba.isChecked(),chkizquierda.isChecked(),chkderecha.isChecked()};
+        if(chkarriba.isChecked()||chkizquierda.isChecked()||chkderecha.isChecked()){
+            Intent abrirvehiculo = new Intent(Movimiento.this, Vehiculo.class);
+            //enviando datos de movimientos escogidos para dejar activados solo los botones respectivos en la activity subsiguiente (conteo)
+            abrirvehiculo.putExtra("movs",movs);
+            startActivity(abrirvehiculo);
+        }
+        else{
+            Toast.makeText(this,"Debe seleccionar al menos un movimiento",Toast.LENGTH_SHORT).show();
+        }
     }
 }
