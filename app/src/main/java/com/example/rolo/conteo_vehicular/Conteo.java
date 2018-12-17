@@ -1,5 +1,6 @@
 package com.example.rolo.conteo_vehicular;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class Conteo extends AppCompatActivity {
     ImageButton bbici,bmoto,bcolectivo,btaxi,bauto,bcamion,bmicro,bbus,bcamiongrande,barriba,bizquierda,bderecha;
     TextView tvbici,tvmoto,tvcolectivo,tvtaxi,tvauto,tvcamion,tvmicro,tvbus,tvcamiongrande;
@@ -17,9 +20,24 @@ public class Conteo extends AppCompatActivity {
     boolean[] vehiculos;
     int vehiculo=0;
     int mov=0;
-    //matriz para guardar todas las adiciones
+    //matriz para guardar todas las adiciones (la fila es vacía y no se ocupa)
     int[][] sumas = new int[10][4];
 
+    int seg=0;
+
+    TextView tvintervalo;
+
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(this,"No se puede volver",Toast.LENGTH_SHORT).show();
+        super.onBackPressed();
+    }
+
+    //@Override
+    //public void onAttachedToWindow(){
+        //Toast.makeText(this,"No se puede salir",Toast.LENGTH_SHORT).show();
+
+    //}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +84,8 @@ public class Conteo extends AppCompatActivity {
         tvbus = (TextView) findViewById(R.id.tvbus);
         tvcamiongrande = (TextView) findViewById(R.id.tvcamiongrande);
 
+        tvintervalo = (TextView) findViewById(R.id.tvintervalo);
+
         //ocultando los botones no seleccionados
         if(vehiculos[0]==false) {
             bbici.setVisibility(View.INVISIBLE);
@@ -106,8 +126,69 @@ public class Conteo extends AppCompatActivity {
             bderecha.setVisibility(View.INVISIBLE);
         }
 
+        thread.start();
+        threadcambio.start();
 
+        /*for (int i=1;i<=10;i++) {
+            try {
+                Thread.sleep(1000, 0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            tvintervalo.setText(String.valueOf(i));
+        }*/
     }
+
+    //thread para mostrar intervalos
+    Thread thread = new Thread() {
+
+        @Override
+        public void run() {
+            try {
+                tvintervalo.setText("Intervalo: 1");
+                while (!thread.isInterrupted()) {
+                    Thread.sleep(500);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Calendar calendario = new java.util.GregorianCalendar();
+                            //int seg = calendario.get(Calendar.SECOND);
+                            tvintervalo.setText(" intervalo: "+String.valueOf(seg+1));
+                            seg++;
+                            if(seg==8){
+                                tvintervalo.setText("Jornada finalizada");
+                                seg++;
+                                thread.interrupt();
+                            }
+                        }
+                    });
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+    };
+
+    Thread threadcambio = new Thread() {
+
+        @Override
+        public void run() {
+            try {
+                while (!thread.isInterrupted()) {
+                    /*if (seg > 8) {
+                        Intent abrirresultado = new Intent(Conteo.this, Resultado.class);
+                        startActivity(abrirresultado);
+                        threadcambio.interrupt();
+                    }
+                }*/}
+                Thread.sleep(1000);
+                Intent abrirresultado = new Intent(Conteo.this, Resultado.class);
+                startActivity(abrirresultado);
+                threadcambio.interrupt();
+
+            } catch(Exception e){}
+        }
+    };
+
     public void bici(View view){
         vehiculo = 1;
     }public void moto(View view){
