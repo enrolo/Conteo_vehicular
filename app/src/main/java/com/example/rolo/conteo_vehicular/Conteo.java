@@ -182,6 +182,12 @@ public class Conteo extends AppCompatActivity {
                 }*/}
                 Thread.sleep(1000);
                 Intent abrirresultado = new Intent(Conteo.this, Resultado.class);
+                //abrirresultado.putExtra("sumas", sumas[1]);
+                abrirresultado.putExtra("sumas", 3);
+                //Bundle mBundle = new Bundle();
+                //mBundle.putSerializable("sumas",sumas);
+                //abrirresultado.putExtras(mBundle);
+
                 startActivity(abrirresultado);
                 threadcambio.interrupt();
 
